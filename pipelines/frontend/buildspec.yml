@@ -15,7 +15,7 @@ phases:
   build:
     commands:
       - echo Build website
-      - API_URI=https://api.ballot-online.com/graphql/ npm run build
+      - npm run build
       - aws s3 rm s3://${bucket_name} --recursive
       - echo Complete clearing the bucket
   post_build:

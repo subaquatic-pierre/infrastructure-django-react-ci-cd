@@ -4,7 +4,15 @@
     "image": "${ECR_APP_URI}",
     "cpu": 512,
     "memory": 512,
+    "port": 80,
     "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "hostPort": 80,
+        "protocol": "tcp"
+      }
+    ],
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
