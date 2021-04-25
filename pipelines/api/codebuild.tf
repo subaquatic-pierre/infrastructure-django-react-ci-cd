@@ -26,7 +26,7 @@ resource "aws_codebuild_project" "api_build" {
       ACCOUNT_ID              = var.aws_account_id
       REPOSITORY_URI          = var.api_ecr_repo_url
       REGION                  = var.region
-      CONTAINER_NAME          = "app"
+      CONTAINER_NAME          = "api"
       DB_NAME                 = var.build_secrets["DB_NAME"]
       DB_USER                 = var.build_secrets["DB_USER"]
       DB_PASSWORD             = var.build_secrets["DB_PASSWORD"]

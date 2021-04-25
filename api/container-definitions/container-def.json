@@ -18,7 +18,7 @@
       "options": {
         "awslogs-group": "${LOG_GROUP}",
         "awslogs-region": "us-east-1",
-        "awslogs-stream-prefix": "app"
+        "awslogs-stream-prefix": "api"
       }
     }
   }
