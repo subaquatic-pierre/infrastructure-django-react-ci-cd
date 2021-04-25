@@ -55,7 +55,7 @@ resource "aws_cloudfront_distribution" "main" {
 resource "aws_cloudfront_distribution" "www" {
   aliases = ["www.${var.domain_name}"]
   enabled = true
-  comment = "Redirect CDN for frontend scubadivedubai.com"
+  comment = "Redirect CDN for frontend ${var.domain_name}"
 
   origin {
     domain_name = aws_s3_bucket.www.website_endpoint

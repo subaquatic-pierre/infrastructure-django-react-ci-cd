@@ -13,8 +13,8 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "scubadivedubai-terraform-backend"
-    key    = "tfstate/scubadivedubai-terraform-backend"
+    bucket = "django-react-terraform-backend"
+    key    = "tfstate/django-react-terraform-backend"
     region = "us-east-1"
   }
 }
@@ -51,12 +51,12 @@ module "pipelines" {
   source = "./pipelines"
 
   aws_account_id       = var.aws_account_id
+  tags                 = var.tags
   github_token         = var.github_token
   github_account       = var.github_account
+  api_ecr_repo_url     = var.api_ecr_app_uri
   frontend_github_repo = var.frontend_github_repo
   api_github_repo      = var.api_github_repo
-  api_ecr_repo_url     = var.api_ecr_app_uri
-  tags                 = var.tags
   build_secrets        = var.build_secrets
 
   subnet_ids               = module.vpc.public_subnets
@@ -67,19 +67,18 @@ module "pipelines" {
 module "api" {
   source = "./api"
 
-  prefix             = "${var.tags["Name"]}-api"
-  domain_name        = var.domain_name
-  public_subnets     = var.public_subnet_cidrs
-  azs                = var.availability_zones
-  cidr               = var.vpc_cidr
-  availability_zones = var.availability_zones
-  ssl_cert_arn       = var.ssl_cert_arn
-  ecr_app_uri        = var.api_ecr_app_uri
-  tags               = var.tags
-  vpc_cidr           = var.vpc_cidr
+  domain_name = var.domain_name
+  prefix      = "${var.tags["Name"]}-api"
+  tags        = var.tags
 
-  vpc_id     = module.vpc.vpc_id
-  subnet_ids = module.vpc.public_subnets
+  vpc_cidr           = var.vpc_cidr
+  vpc_id             = module.vpc.vpc_id
+  subnet_ids         = module.vpc.public_subnets
+  public_subnets     = var.public_subnet_cidrs
+  availability_zones = var.availability_zones
+
+  ssl_cert_arn = var.ssl_cert_arn
+  ecr_app_uri  = var.api_ecr_app_uri
 }
 
 

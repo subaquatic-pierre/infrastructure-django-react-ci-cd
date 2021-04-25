@@ -1,9 +1,11 @@
 variable "aws_account_id" {}
 variable "prefix" {}
 variable "tags" {}
+
 variable "github_token" {}
 variable "github_account" {}
 variable "github_repo" {}
+
 variable "subnet_ids" {}
 variable "region" {}
 

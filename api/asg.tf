@@ -27,7 +27,7 @@ resource "aws_security_group" "ec2_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = [var.cidr, "0.0.0.0/0"]
+    cidr_blocks = [var.vpc_cidr, "0.0.0.0/0"]
   }
 
   egress {
