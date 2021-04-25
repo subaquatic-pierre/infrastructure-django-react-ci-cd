@@ -1,0 +1,40 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${REPOSITORY_URI}.dkr.ecr.${REGION}.amazonaws.com
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the application Docker image...
+      - docker login --username=${DOCKER_USERNAME} --password=${DOCKER_PASSWORD}
+      - |
+        docker build -t ${REPOSITORY_URI}:latest . \
+          --build-arg DB_NAME=${DB_NAME} \
+          --build-arg DB_USER=${DB_USER} \
+          --build-arg DB_PASSWORD=${DB_PASSWORD} \
+          --build-arg DB_HOST=${DB_HOST} \
+          --build-arg DB_PORT=${DB_PORT} \
+          --build-arg EMAIL=${EMAIL} \
+          --build-arg SECRET_KEY=${SECRET_KEY} \
+          --build-arg DEBUG=${DEBUG} \
+          --build-arg ALLOWED_HOSTS=${ALLOWED_HOSTS} \
+          --build-arg AWS_MEDIA_BUCKET_NAME=${AWS_MEDIA_BUCKET_NAME} \
+          --build-arg AWS_STORAGE_BUCKET_NAME=${AWS_STORAGE_BUCKET_NAME} \
+          --build-arg AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
+          --build-arg AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
+      - echo ------------------
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push ${REPOSITORY_URI}:latest
+      - echo Writing image definitions file...
+      - printf '[{"name":"${CONTAINER_NAME}","imageUri":"%s"}]' ${REPOSITORY_URI}:latest > imagedefinitions.json
+artifacts:
+  files:
+    - imagedefinitions.json
+  discard-paths: yes

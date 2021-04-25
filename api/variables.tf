@@ -1,0 +1,12 @@
+variable "domain_name" {}
+variable "prefix" {}
+variable "azs" {}
+variable "public_subnets" {}
+variable "cidr" {}
+variable "availability_zones" {}
+variable "ssl_cert_arn" {}
+variable "vpc_id" {}
+variable "subnet_ids" {}
+variable "ecr_app_uri" {}
+variable "tags" {}
+variable "vpc_cidr" {}

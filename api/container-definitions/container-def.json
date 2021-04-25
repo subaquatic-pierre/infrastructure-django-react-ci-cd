@@ -1,0 +1,17 @@
+[
+  {
+    "name": "api",
+    "image": "${ECR_APP_URI}",
+    "cpu": 512,
+    "memory": 512,
+    "essential": true,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${LOG_GROUP}",
+        "awslogs-region": "us-east-1",
+        "awslogs-stream-prefix": "app"
+      }
+    }
+  }
+]

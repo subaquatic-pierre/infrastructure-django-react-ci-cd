@@ -1,0 +1,29 @@
+version: 0.2
+
+env:
+  variables:
+    NODE_ENV: "${env}"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+  pre_build:
+    commands:
+      - echo Install dependencies website
+      - npm install
+  build:
+    commands:
+      - echo Build website
+      - API_URI=https://api.ballot-online.com/graphql/ npm run build
+      - aws s3 rm s3://${bucket_name} --recursive
+      - echo Complete clearing the bucket
+  post_build:
+    commands:
+      - echo Invalidating distribution cache
+      - aws cloudfront create-invalidation --distribution-id ${distribution_id} --paths "/*"
+      - echo Copy build files to bucket
+      - aws s3 cp --recursive dist/ s3://${bucket_name}/
+      - echo Completed copying over dist files
+
+
