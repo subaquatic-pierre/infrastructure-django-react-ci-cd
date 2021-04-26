@@ -2,7 +2,9 @@ version: 0.2
 
 env:
   variables:
-    NODE_ENV: "${env}"
+    NODE_ENV: ${env}
+    REACT_APP_DEV_ENV: ${dev_env}
+    REACT_APP_URI: ${api_uri}
 
 phases:
   install:
@@ -15,7 +17,7 @@ phases:
   build:
     commands:
       - echo Build website
-      - REACT_APP_API=api.ballot-online.com npm run build
+      - npm run build
       - aws s3 rm s3://${bucket_name} --recursive
       - echo Complete clearing the bucket
   post_build:

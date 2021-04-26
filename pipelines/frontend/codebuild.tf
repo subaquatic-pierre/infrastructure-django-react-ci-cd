@@ -24,8 +24,10 @@ resource "aws_codebuild_project" "static_web_build" {
     type = "CODEPIPELINE"
     buildspec = templatefile("${path.module}/buildspec.yml", {
       bucket_name     = var.frontend_site_bucket.bucket,
-      env             = "development",
+      env             = "production",
+      dev_env         = "False",
       distribution_id = var.frontend_cf_distribution
+      api_uri         = var.build_secrets["REACT_APP_URI"]
     })
   }
 }
