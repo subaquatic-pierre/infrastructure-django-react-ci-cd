@@ -8,6 +8,11 @@ variable "github_token" {}
 variable "github_account" {}
 variable "github_repo" {}
 
+variable "build_secrets" {
+  type        = map(string)
+  description = "All secrets used in building images"
+}
+
 variable "codebuild_role" {}
 variable "codepipeline_role" {}
 

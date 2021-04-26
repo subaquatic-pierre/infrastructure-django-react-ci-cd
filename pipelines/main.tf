@@ -13,6 +13,8 @@ module "frontend_pipeline" {
   github_account = var.github_account
   github_repo    = var.frontend_github_repo
 
+  build_secrets = var.build_secrets
+
   codebuild_role    = aws_iam_role.codebuild_role.arn
   codepipeline_role = aws_iam_role.codepipeline_role.arn
 }

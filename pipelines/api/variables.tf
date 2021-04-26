@@ -14,7 +14,6 @@ variable "build_secrets" {
   description = "All secrets used in building images"
 }
 
-
 variable "codebuild_role" {}
 variable "codepipeline_role" {}
 variable "api_ecr_repo_url" {}

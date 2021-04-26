@@ -27,12 +27,32 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
   "Version": "2012-10-17",
   "Statement": [
     {
+    "Action": [
+        "codestar-connections:UseConnection"
+      ],
+    "Resource": "*",
+    "Effect": "Allow"
+    },
+    {
+    "Action": [
+        "appconfig:StartDeployment",
+        "appconfig:GetDeployment",
+        "appconfig:StopDeployment"
+      ],
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
+    "Action": [
+        "codecommit:GetRepository"
+      ],
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
       "Effect":"Allow",
       "Action": [
-        "s3:GetObject",
-        "s3:GetObjectVersion",
-        "s3:GetBucketVersioning",
-        "s3:PutObject"
+        "s3:*"
       ],
       "Resource": [
         "arn:aws:s3:::*/*"

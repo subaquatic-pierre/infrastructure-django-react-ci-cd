@@ -1,4 +1,4 @@
-resource "aws_codepipeline" "prod_pipeline" {
+resource "aws_codepipeline" "api_pipeline" {
   name     = "${var.prefix}-pipeline"
   role_arn = var.codepipeline_role
   tags     = var.tags
@@ -14,17 +14,15 @@ resource "aws_codepipeline" "prod_pipeline" {
     action {
       name             = "Source"
       category         = "Source"
-      owner            = "ThirdParty"
-      provider         = "GitHub"
+      owner            = "AWS"
+      provider         = "CodeStarSourceConnection"
       version          = "1"
       output_artifacts = ["source_output"]
 
       configuration = {
-        Owner      = var.github_account
-        OAuthToken = var.github_token
-
-        Repo   = var.github_repo["name"]
-        Branch = var.github_repo["prod_branch"]
+        ConnectionArn    = aws_codestarconnections_connection.api_github_connection.arn
+        FullRepositoryId = "subaquatic-pierre/${var.github_repo["name"]}"
+        BranchName       = "main"
       }
     }
   }
@@ -65,4 +63,9 @@ resource "aws_codepipeline" "prod_pipeline" {
       }
     }
   }
+}
+
+resource "aws_codestarconnections_connection" "api_github_connection" {
+  name          = "${var.prefix}-connection"
+  provider_type = "GitHub"
 }

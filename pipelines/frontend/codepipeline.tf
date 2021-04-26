@@ -1,4 +1,4 @@
-resource "aws_codepipeline" "prod_pipeline" {
+resource "aws_codepipeline" "frontend_pipeline" {
   name     = "${var.prefix}-pipeline"
   role_arn = var.codepipeline_role
 
