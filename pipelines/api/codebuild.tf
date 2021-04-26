@@ -36,6 +36,7 @@ resource "aws_codebuild_project" "api_build" {
       SECRET_KEY              = var.build_secrets["SECRET_KEY"]
       DEBUG                   = var.build_secrets["DEBUG"]
       ALLOWED_HOSTS           = var.build_secrets["ALLOWED_HOSTS"]
+      CSRF_TRUSTED_ORIGINS    = var.build_secrets["CSRF_TRUSTED_ORIGINS"]
       AWS_MEDIA_BUCKET_NAME   = var.build_secrets["AWS_MEDIA_BUCKET_NAME"]
       AWS_STORAGE_BUCKET_NAME = var.build_secrets["AWS_STORAGE_BUCKET_NAME"]
       AWS_ACCESS_KEY_ID       = var.build_secrets["AWS_ACCESS_KEY_ID"]
