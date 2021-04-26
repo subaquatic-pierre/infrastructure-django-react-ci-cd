@@ -49,6 +49,6 @@ resource "aws_ecs_service" "api_service" {
 }
 
 resource "aws_cloudwatch_log_group" "ecs_log_group" {
-  name = "/django-react/ecs/api"
+  name = "/${var.tags["Project"]}/ecs/api"
   tags = var.tags
 }

@@ -5,6 +5,7 @@ variable "tags" {}
 variable "github_token" {}
 variable "github_account" {}
 variable "github_repo" {}
+variable "codestar_connection" {}
 
 variable "subnet_ids" {}
 variable "region" {}

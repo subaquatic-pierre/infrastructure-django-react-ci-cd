@@ -20,9 +20,9 @@ resource "aws_codepipeline" "api_pipeline" {
       output_artifacts = ["source_output"]
 
       configuration = {
-        ConnectionArn    = aws_codestarconnections_connection.api_github_connection.arn
+        ConnectionArn    = var.codestar_connection
         FullRepositoryId = "subaquatic-pierre/${var.github_repo["name"]}"
-        BranchName       = "main"
+        BranchName       = var.github_repo["prod_branch"]
       }
     }
   }
@@ -65,7 +65,3 @@ resource "aws_codepipeline" "api_pipeline" {
   }
 }
 
-resource "aws_codestarconnections_connection" "api_github_connection" {
-  name          = "${var.prefix}-connection"
-  provider_type = "GitHub"
-}
